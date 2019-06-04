@@ -1,0 +1,178 @@
+query.prepare("CREATE TABLE refer(id INTEGER PRIMARY KEY AUTOINCREMENT,temp INT,humi INT,light INT,oxygen INT,date_time VARCHAR(24))");
+
+query.prepare(tr("CREATE TABLE users(id INTEGER PRIMARY KEY AUTOINCREMENT,name VARCHAR(30) NOT NULL,carNum VARCHAR(30) NOT NULL UNIQUE,tagID VARCHAR(30) NOT NULL UNIQUE,carType VARCHAR(30) NOT NULL,balance INT NOT NULL,tel VARCHAR(30))"));
+
+query.prepare(tr("CREATE TABLE user_parking(cardID varchar(50) PRIMARY KEY NOT NULL,"
+                 "carNumber varchar(50) NOT NULL UNIQUE,carType varchar(50) NOT NULL,"
+                 "userName varchar(50) NOT NULL,userPhone varchar(50) DEFAULT NULL,"
+                 "cardBalance int(11) NOT NULL,registerTime date DEFAULT NULL)"));
+query.prepare(tr("CREATE TABLE regs(Id INTEGER PRIMARY KEY AUTOINCREMENT,"
+                 "tagID varchar(50) DEFAULT NULL,time datetime DEFAULT NULL)"));
+
+//坑：INTEGER 可以 AUTOINCREMENT 但int(10)不行
+query.prepare(tr("CREATE TABLE records(id INTEGER PRIMARY KEY AUTOINCREMENT,"
+                 "name varchar(50) DEFAULT NULL,carNum varchar(50) DEFAULT NULL,"
+                 "tagID varchar(50) DEFAULT NULL,amount int(11) DEFAULT NULL,"
+                 "recordType varchar(50) DEFAULT NULL,date datetime DEFAULT '0000-00-00 00:00:00')"));
+
+query.prepare(tr("CREATE TABLE pay_records(id INTEGER PRIMARY KEY AUTOINCREMENT,"
+                 "carNumber varchar(255) NOT NULL,startTime datetime NOT NULL,"
+                 "endTime datetime NOT NULL,payMoney int(11) NOT NULL,"
+                 "unitPrice int(11) NOT NULL"));
+
+query.exec(tr("INSERT INTO users VALUES(1,'张三','京A35432','12345678','小型',288,'18143144662')"));
+query.exec(tr("INSERT INTO users VALUES(2,'李四','吉C96581','87654321','大型',-3162,'13579993223')"));
+
+query.exec(tr("INSERT INTO user_parking "
+              "VALUES('0123456789','蒙S12254','BM','YY','01012485',100,'2013-08-10'),"
+              "('0610558334','津B868Q8','奔驰','中德2号','0108986689',-95,'2013-08-29'),"
+              "('101707','贵C66666','BYD','大神','13545678988',-118,'2013-08-13'),"
+              "('1374691810','京N66666','BMX8','左左','13659456685',140,'2013-08-18'),"
+              "('1449148510','京A87681','奔驰','吉大','13578654345',990,'2013-10-18'),"
+              "('21342343435','津Q34545','北京现代','ww','',100,'2013-09-24'),"
+              "('235689','京P12345','BM','DFSDF','18623569845',-60,'2013-08-10'),"
+              "('2698452','贵A12345','BC','奥尔斯','10123456',39,'2013-08-11'),"
+              "('3364470974','吉C96581','奥迪A8','OURS','18856773209',470,'2013-10-18'),"
+              "('3537268110','津A123T5','BMW','中德科技','1356785698',300,'2013-08-30'),"
+              "('698541','冀A55555','QQ','靳爱兵','18600012345',80,'2013-08-12')"));
+
+query.exec(tr("INSERT INTO regs VALUES(14,'hello','2013-10-18 19:23:25')"));
+
+query.exec(tr("INSERT INTO records VALUES(1,'饿','京A12444','300833B21111014000000000',27,'消费记录','2013-09-24 10:10:22'),"
+              "(2,'饿','京A12444','300833B21111014000000000',35,'消费记录','2013-09-24 10:10:28'),"
+              "(3,'饿','京A12444','300833B21111014000000000',58,'消费记录','2013-09-24 10:10:34'),"
+              "(4,'饿','京A12444','300833B21111014000000000',93,'消费记录','2013-09-24 10:10:40'),"
+              "(5,'饿','京A12444','300833B21111014000000000',16,'消费记录','2013-09-24 10:10:46'),"
+              "(6,'饿','京A12444','300833B21111014000000000',93,'消费记录','2013-09-24 10:10:52'),"
+              "(7,'饿','京A12444','300833B21111014000000000',41,'消费记录','2013-09-24 10:10:59'),"
+              "(10,'饿','京A12444','300833B21111014000000000',28,'消费记录','2013-09-24 10:11:17'),"
+              "(11,'饿','京A12444','300833B21111014000000000',37,'消费记录','2013-09-24 10:11:23'),"
+              "(12,'饿','京A12444','300833B21111014000000000',85,'消费记录','2013-09-24 10:11:29'),"
+              "(30,'qqq','津A15432','300833B2DDD9014000000000',51,'消费记录','2013-09-24 11:33:10'),"
+              "(31,'qqq','津A15432','300833B2DDD9014000000000',33,'消费记录','2013-09-24 11:36:47'),"
+              "(32,'qqq','津A15432','300833B2DDD9014000000000',21,'消费记录','2013-09-24 11:37:11'),"
+              "(33,'qqq','津A15432','300833B2DDD9014000000000',79,'消费记录','2013-09-24 11:38:36'),"
+              "(34,'qqq','津A15432','300833B2DDD9014000000000',32,'消费记录','2013-09-24 11:40:01'),"
+              "(35,'苍雪','川CA1B2C','1234567890123456789012345678',100,'充值记录','2013-09-29 17:20:33'),"
+              "(36,'苍雪','川CA1B2C','1234567890123456789012345678',100,'充值记录','2013-09-29 17:20:59'),"
+              "(37,'f','京A35432','1234',8,'消费记录','2013-10-18 00:46:49'),"
+              "(38,'f','京A35432','1234',4,'消费记录','2013-10-18 00:47:05'),"
+              "(39,'OURS','吉C96581','300833B21111014000000000',90,'消费记录','2013-10-18 16:28:35'),"
+              "(40,'OURS','吉C96581','300833B21111014000000000',90,'消费记录','2013-10-18 16:30:06'),"
+              "(41,'OURS','吉C96581','300833B21111014000000000',80,'消费记录','2013-10-18 16:30:59'),"
+              "(42,'OURS','吉C96581','300833B21111014000000000',32,'消费记录','2013-10-18 16:32:21'),"
+              "(43,'OURS','吉C96581','300833B21111014000000000',51,'消费记录','2013-10-18 16:45:07'),"
+              "(44,'OURS','吉C96581','300833B21111014000000000',82,'消费记录','2013-10-18 16:45:37'),"
+              "(45,'OURS','吉C96581','300833B21111014000000000',21,'消费记录','2013-10-18 17:07:37');
+
+query.prepare(tr("CREATE TABLE exit_car(id INTEGER PRIMARY KEY AUTOINCREMENT,"
+                 "carNumber varchar(50) NOT NULL UNIQUE,endTime datetime NOT NULL)"));
+
+query.prepare(tr("CREATE TABLE enter_car(id INTEGER PRIMARY KEY AUTOINCREMENT,"
+                 "carNumber varchar(50) NOT NULL UNIQUE,startTime datetime NOT NULL,"
+                 "unitPrice int(11) NOT NULL)"));
+
+query.prepare(tr("CREATE TABLE cartypes(id INTEGER PRIMARY KEY AUTOINCREMENT,"
+                 "cartype varchar(255) DEFAULT NULL,price int(11) DEFAULT NULL)"));
+
+query.prepare(tr("CREATE TABLE car_distribute(id INTEGER PRIMARY KEY AUTOINCREMENT,"
+                 "carNum varchar(255) NOT NULL,photographTime datetime NOT NULL)"));
+
+query.exec(tr("INSERT INTO cartypes VALUES"
+              "(1,'小型',10),(2,'中型',50),(3,'大型',100),(5,'警车',0),(6,'公交车',0)"));
+query.exec(tr("INSERT INTO car_distribute VALUES(40,'津A15432','2013-09-23 16:31:35'),"
+              "(41,'津A15432','2013-09-23 16:32:28'),(42,'津A15432','2013-09-23 16:33:57'),"
+              "(43,'津A15432','2013-09-23 16:36:30'),(44,'津A15432','2013-09-23 16:36:34'),"
+              "(45,'津A15432','2013-09-23 16:36:40'),(46,'津A15432','2013-09-23 16:36:49'),"
+              "(47,'津A15432','2013-09-23 16:41:00'),(48,'津A15432','2013-09-23 18:20:17'),"
+              "(49,'津A15432','2013-09-23 18:21:07'),(50,'津A15432','2013-09-23 18:22:30'),"
+              "(51,'就A12444','2013-09-24 10:14:15'),(52,'就A12444','2013-09-24 10:14:15'),"
+              "(53,'就A12444','2013-09-24 10:14:15'),(54,'津A15432','2013-09-24 10:17:42'),"
+              "(55,'津A15432','2013-09-24 10:17:42'),(56,'津A15432','2013-09-24 10:17:42'),"
+              "(57,'津A15432','2013-09-24 10:17:42'),(58,'津A15432','2013-09-24 10:17:42'),"
+              "(59,'津A15432','2013-09-24 10:17:42'),(60,'津A15432','2013-09-24 10:17:42'),"
+              "(61,'津A15432','2013-09-24 10:17:42'),(62,'津A15432','2013-09-24 10:17:43'),"
+              "(63,'津A15432','2013-09-24 10:17:43'),(64,'津A15432','2013-09-24 10:17:43'),"
+              "(65,'津A15432','2013-09-24 10:17:43'),(66,'津A15432','2013-09-24 10:17:43'),"
+              "(67,'津A15432','2013-09-24 10:17:43'),(68,'津A15432','2013-09-24 10:17:43'),"
+              "(69,'津A15432','2013-09-24 11:33:00'),(70,'津A15432','2013-09-24 11:37:02'),"
+              "(71,'津A15432','2013-09-24 11:38:51'),(72,'津A15432','2013-09-24 11:39:52'),"
+              "(73,'就A12444','2013-09-24 13:44:17'),(74,'就A12444','2013-09-24 13:48:57'),"
+              "(75,'京A11111','2013-09-30 16:07:29'),(76,'京A11111','2013-10-09 14:32:43'),"
+              "(77,'京A11111','2013-10-09 14:43:14'),(78,'京A11111','2013-10-09 14:44:33'),"
+              "(79,'京A11111','2013-10-09 14:45:48'),(80,'京A11111','2013-10-09 14:51:48'),"
+              "(81,'京A11111','2013-10-09 14:53:43'),(82,'京A11111','2013-10-10 15:48:32')"));
+
+query.prepare(tr("CREATE TABLE pay_records(id INTEGER PRIMARY KEY AUTOINCREMENT,"
+                 "carNumber varchar(50) NOT NULL,startTime datetime NOT NULL,"
+                 "endTime datetime NOT NULL,payMoney int(11) NOT NULL,"
+                 "unitPrice int(11) NOT NULL)"));
+
+query.exec(tr("INSERT INTO pay_records VALUES"
+              "(54,'津A123T5','2013-08-30 17:44:37','2013-08-30 17:45:58',10,5),"
+              "(55,'津A123T5','2013-08-30 17:46:53','2013-08-30 17:47:04',5,5),"
+              "(56,'津B868Q8','2013-08-30 17:46:46','2013-08-30 17:47:23',5,5),"
+              "(57,'津A123T5','2013-08-30 17:47:43','2013-08-30 17:48:13',5,5),"
+              "(58,'津B868Q8','2013-08-30 17:50:39','2013-08-30 17:50:49',5,5),"
+              "(59,'津B868Q8','2013-08-30 17:51:49','2013-08-30 17:51:59',5,5),"
+              "(60,'津A123T5','2013-08-30 17:51:35','2013-08-30 17:52:17',5,5),"
+              "(61,'津B868Q8','2013-08-30 18:47:23','2013-08-30 18:47:38',5,5),"
+              "(62,'津B868Q8','2013-08-30 18:59:18','2013-08-30 18:59:56',5,5),"
+              "(63,'津B868Q8','2013-08-30 19:00:16','2013-08-30 19:00:53',5,5),"
+              "(64,'津A123T5','2013-08-30 19:01:58','2013-08-30 19:02:14',5,5),"
+              "(65,'津B868Q8','2013-08-30 19:01:49','2013-08-30 19:02:32',5,5),"
+              "(66,'津A123T5','2013-08-31 17:26:05','2013-08-31 17:26:27',5,5),"
+              "(67,'津A123T5','2013-08-31 17:53:32','2013-08-31 17:55:57',15,5),"
+              "(68,'津A123T5','2013-08-31 17:56:48','2013-08-31 17:57:00',5,5),"
+              "(69,'津B868Q8','2013-08-31 17:58:25','2013-08-31 17:58:36',5,5),"
+              "(70,'津B868Q8','2013-08-31 18:00:14','2013-08-31 18:00:21',5,5),"
+              "(71,'津A123T5','2013-08-31 18:00:35','2013-08-31 18:01:12',5,5),"
+              "(72,'津B868Q8','2013-08-31 18:00:31','2013-08-31 18:01:24',5,5),"
+              "(73,'津B868Q8','2013-08-31 18:10:43','2013-08-31 18:11:55',10,5),"
+              "(74,'津A123T5','2013-08-31 18:15:43','2013-08-31 18:16:30',5,5),"
+              "(75,'津A123T5','2013-08-31 18:16:50','2013-08-31 18:16:56',5,5),"
+              "(76,'津A123T5','2013-08-31 18:17:22','2013-08-31 18:17:30',5,5),"
+              "(77,'津A123T5','2013-08-31 18:17:52','2013-08-31 18:17:59',5,5),"
+              "(78,'津A123T5','2013-08-31 18:20:39','2013-08-31 18:20:45',5,5),"
+              "(79,'津A123T5','2013-08-31 18:20:53','2013-08-31 18:20:59',5,5),"
+              "(80,'津B868Q8','2013-08-31 18:21:14','2013-08-31 18:21:35',5,5),"
+              "(81,'津A123T5','2013-08-31 18:21:09','2013-08-31 18:21:42',5,5)"));
+
+//query.exec("CREATE TABLE sites(id INTEGER PRIMARY KEY AUTOINCREMENT,maxSite int,leftSite int(11))");
+query.exec("INSERT INTO car_distribute(owner_name,carNum,photographTime) VALUES('王五','京A12444','2013-08-24 10:10:28')");
+query.exec("INSERT INTO car_distribute(owner_name,carNum,photographTime) VALUES('张三','津A15432','2013-09-24 11:33:10')");
+query.exec("INSERT INTO car_distribute(owner_name,carNum,photographTime) VALUES('刘磊','京A12659','2014-03-23 10:19:28')");
+query.exec("INSERT INTO car_distribute(owner_name,carNum,photographTime) VALUES('王刚','京B74813','2014-06-24 17:10:28')");
+query.exec("INSERT INTO car_distribute(owner_name,carNum,photographTime) VALUES('李鹏','吉A33444','2014-08-14 16:35:28')");
+query.exec("INSERT INTO car_distribute(owner_name,carNum,photographTime) VALUES('杨洋','京C98767','2014-09-30 10:07:28')");
+query.exec("INSERT INTO car_distribute(owner_name,carNum,photographTime) VALUES('李刚','吉A12564','2015-02-21 10:10:28')");
+query.exec("INSERT INTO car_distribute(owner_name,carNum,photographTime) VALUES('张强','吉A98765','2015-04-27 07:28:28')");
+query.exec("INSERT INTO car_distribute(owner_name,carNum,photographTime) VALUES('王伟','吉B12666','2015-07-18 04:10:28')");
+query.exec("INSERT INTO car_distribute(owner_name,carNum,photographTime) VALUES('高芳','京A13334','2015-09-27 09:27:28')");
+query.exec("INSERT INTO car_distribute(owner_name,carNum,photographTime) VALUES('丁磊','吉C12345','2015-11-24 17:25:33')");
+query.exec("INSERT INTO car_distribute(owner_name,carNum,photographTime) VALUES('周鹏','京A56789','2015-12-05 14:10:28')");
+query.exec("INSERT INTO car_distribute(owner_name,carNum,photographTime) VALUES('罗帅','吉D54899','2016-01-12 13:56:28')");
+query.exec("INSERT INTO car_distribute(owner_name,carNum,photographTime) VALUES('姜亮','京A12444','2016-03-15 18:35:45')");
+query.exec("INSERT INTO car_distribute(owner_name,carNum,photographTime) VALUES('王伟','吉B12666','2016-03-17 01:16:16')");
+query.exec("INSERT INTO car_distribute(owner_name,carNum,photographTime) VALUES('张超','京A55668','2016-04-14 10:10:28')");
+query.exec("INSERT INTO car_distribute(owner_name,carNum,photographTime) VALUES('宋平','甘H12354','2016-06-21 12:15:28')");
+query.exec("INSERT INTO car_distribute(owner_name,carNum,photographTime) VALUES('陆源','甘A15554','2016-07-19 10:19:23')");
+query.exec("INSERT INTO car_distribute(owner_name,carNum,photographTime) VALUES('张强','吉A98765','2016-09-28 11:11:28')");
+query.exec("INSERT INTO car_distribute(owner_name,carNum,photographTime) VALUES('丁磊','吉C12345','2016-11-05 15:15:28')");
+query.exec("INSERT INTO car_distribute(owner_name,carNum,photographTime) VALUES('张超','京A55668','2016-12-22 17:14:28')");
+query.exec("INSERT INTO car_distribute(owner_name,carNum,photographTime) VALUES('王伟','吉B12666','2017-01-24 07:10:28')");
+query.exec("INSERT INTO car_distribute(owner_name,carNum,photographTime) VALUES('张三','津A15432','2017-02-11 17:48:28')");
+query.exec("INSERT INTO car_distribute(owner_name,carNum,photographTime) VALUES('罗帅','吉D54899','2017-02-27 19:10:28')");
+query.exec("INSERT INTO car_distribute(owner_name,carNum,photographTime) VALUES('李鹏','吉A33444','2017-03-24 20:13:28')");
+query.exec("INSERT INTO car_distribute(owner_name,carNum,photographTime) VALUES('张三','津A15432','2017-04-04 23:57:28')");
+query.exec("INSERT INTO car_distribute(owner_name,carNum,photographTime) VALUES('罗帅','吉D54899','2017-04-15 16:10:28')");
+query.exec("INSERT INTO car_distribute(owner_name,carNum,photographTime) VALUES('王伟','吉B12666','2017-04-27 16:38:28')");
+query.exec("INSERT INTO car_distribute(owner_name,carNum,photographTime) VALUES('丁磊','吉C12345','2017-05-30 13:10:28')");
+query.exec("INSERT INTO car_distribute(owner_name,carNum,photographTime) VALUES('李鹏','吉A33444','2017-06-17 08:50:28')");
+query.exec("INSERT INTO car_distribute(owner_name,carNum,photographTime) VALUES('丁磊','吉C12345','2017-08-20 14:33:28')");
+query.exec("INSERT INTO car_distribute(owner_name,carNum,photographTime) VALUES('王五','京A12444','2017-08-28 12:10:28')");
+query.exec("INSERT INTO car_distribute(owner_name,carNum,photographTime) VALUES('李鹏','吉A33444','2017-10-16 10:11:28')");
+query.exec("INSERT INTO car_distribute(owner_name,carNum,photographTime) VALUES('张三','津A15432','2018-01-04 15:10:28')");
+query.exec("INSERT INTO car_distribute(owner_name,carNum,photographTime) VALUES('李鹏','吉A33444','2018-01-10 13:19:28')");
+query.exec("INSERT INTO car_distribute(owner_name,carNum,photographTime) VALUES('罗帅','吉D54899','2018-03-06 21:14:28')");
+query.exec("INSERT INTO car_distribute(owner_name,carNum,photographTime) VALUES('王五','京A12444','2018-03-12 23:10:28')");

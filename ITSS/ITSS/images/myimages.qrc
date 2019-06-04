@@ -1,0 +1,32 @@
+<RCC>
+    <qresource prefix="/new/imgsrc">
+        <file>add.gif</file>
+        <file>add16.gif</file>
+        <file>add24.gif</file>
+        <file>deng-0.jpg</file>
+        <file>deng-1.jpg</file>
+        <file>form.png</file>
+        <file>form_add.png</file>
+        <file>form_delete.png</file>
+        <file>form_edit.png</file>
+        <file>logout.png</file>
+        <file>menu_analysis.png</file>
+        <file>menu_report.png</file>
+        <file>menu_settings.png</file>
+        <file>menu_special.png</file>
+        <file>menu_timing.png</file>
+        <file>menu-bg.gif</file>
+        <file>mode.png</file>
+        <file>theme.png</file>
+        <file>user.png</file>
+        <file>Refresh.png</file>
+        <file>welcome.gif</file>
+        <file>re.gif</file>
+        <file>re.png</file>
+        <file>About.png</file>
+        <file>Help.png</file>
+        <file>Look.png</file>
+        <file>foward.png</file>
+        <file>later.png</file>
+    </qresource>
+</RCC>
